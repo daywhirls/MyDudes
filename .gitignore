@@ -1,0 +1,4 @@
+/config.py
+/nohup.out
+*.pyc
+/__pycache__/

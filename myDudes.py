@@ -2,24 +2,19 @@
 
 import config
 import datetime
-from twitter import *
-
-# @author David Worley, david@davidworley.com
-# @date 04/19/2017
-# Tweetin' to my dudes
+import tweepy
 
 def authenticate():
-	# read secure info to login to Twitter
-	t = Twitter(auth=OAuth(config.token, config.token_secret, config.consumer_key, config.consumer_secret))
-	return t
-
+    auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
+    auth.set_access_token(config.token, config.token_secret)
+    return tweepy.API(auth)
 
 def tweetToMyDudes():
-	# commence the majesticnes
+	# commence the majesticness
+    api = authenticate()
+    today = datetime.datetime.now().strftime("%A")
+    goodTweet = "It's " + today + " my dudes"
+    api.update_status(goodTweet)
 
-	t = authenticate()
-	today = datetime.datetime.now().strftime("%A")
-	goodTweet = "It's " + today + " my dudes"
-	t.statuses.update(status= goodTweet)
 
 tweetToMyDudes()
